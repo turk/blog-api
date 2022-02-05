@@ -15,10 +15,21 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable('false');
-            $table->decimal('price', 6, 2);
+            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('title')->nullable(false);
+            $table->text('description')->nullable(false);
+            $table->integer('vote')->unsigned()->default(0);
             $table->timestamps();
-            $table->unique('name');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

@@ -18,7 +18,7 @@ class CreateArticleRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|integer|exists:categories,id',
+            'category' => 'required|integer|exists:categories,id',
             'title' => 'required',
             'description' => 'required',
         ];

@@ -42,7 +42,7 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Exception|Throwable $e): JsonResponse
+    public function render($request, Exception|Throwable $e): JsonResponse|\Symfony\Component\HttpFoundation\Response
     {
         if ($e instanceof AuthorizationException)
         {

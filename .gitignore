@@ -1,0 +1,12 @@
+/.docker/mysql/data/
+
+/vendor/
+/node_modules/
+/npm-debug.log
+/yarn-error.log
+
+/storage/*.key
+/.env
+/.phpunit.result.cache
+/.idea/dataSources.xml
+/.idea/laravel-plugin.xml

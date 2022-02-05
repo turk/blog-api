@@ -18,3 +18,7 @@ composer dump-autoload
 
 echo -e "Run migrations...\n"
 php artisan migrate
+
+echo -e "Run seeds...\n"
+php artisan db:seed
+

@@ -20,6 +20,8 @@ class ArticlePolicy
 
     public function delete(User $user, Article $article)
     {
-        //
+        return $user->id === $article->user_id
+            ? Response::allow()
+            : Response::deny('You do not own this post.');
     }
 }

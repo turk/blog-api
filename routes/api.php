@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ArticleApiController;
 use App\Http\Controllers\API\AuthApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,9 @@ Route::prefix('v1')->group(function () {
     Route::post('register', [AuthApiController::class, 'register']);
     Route::post('login', [AuthApiController::class, 'login']);
     Route::post('logout', [AuthApiController::class, 'logout']);
+
+    Route::middleware(['jwt.verify'])->group(function () {
+        Route::resource('articles', ArticleApiController::class);
+    });
+
 });

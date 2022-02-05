@@ -42,4 +42,19 @@ class ArticleApiController extends BaseApiController
             return RestResponse::bad('Update request can not be processed right now.');
         }
     }
+
+    public function destroy(Article $article, ArticleCrud $crud): JsonResponse
+    {
+        $this->authorize('delete', $article);
+
+        try {
+            $crud->delete($article);
+
+            return RestResponse::ok('Article is deleted.');
+        }catch (Throwable $throwable) {
+            Log::error($throwable->getMessage());
+
+            return RestResponse::bad('Delete request can not be processed right now.');
+        }
+    }
 }

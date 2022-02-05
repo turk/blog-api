@@ -38,8 +38,8 @@ class ArticleCrud implements CrudInterface
         return $entity->toArray();
     }
 
-    public function delete(int $id): bool
+    public function delete(Article|Model $entity): void
     {
-        return true;
+        Article::destroy($entity->id);
     }
 }

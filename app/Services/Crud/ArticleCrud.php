@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Crud;
 
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Model;
 
 class ArticleCrud implements CrudInterface
 {
@@ -27,9 +28,14 @@ class ArticleCrud implements CrudInterface
         return [];
     }
 
-    public function update(int $id, array $data): array
+    public function update(Article|Model $entity, array $data): array
     {
-        return [];
+        $entity->category_id = $data['category'];
+        $entity->title = $data['title'];
+        $entity->description = $data['description'];
+        $entity->save();
+
+        return $entity->toArray();
     }
 
     public function delete(int $id): bool

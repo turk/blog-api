@@ -6,6 +6,7 @@ namespace App\Services\Crud;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
 
 class UserCrud implements CrudInterface
 {
@@ -25,7 +26,7 @@ class UserCrud implements CrudInterface
         return [];
     }
 
-    public function update(int $id, array $data): array
+    public function update(User|Model $entity, array $data): array
     {
         return [];
     }

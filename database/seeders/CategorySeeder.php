@@ -29,5 +29,11 @@ class CategorySeeder extends Seeder
         Category::firstOrCreate([
             'name' => 'Car'
         ]);
+        Category::firstOrCreate([
+            'name' => 'Garden'
+        ]);
+        Category::firstOrCreate([
+            'name' => 'Health'
+        ]);
     }
 }

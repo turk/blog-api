@@ -19,9 +19,10 @@ Route::prefix('v1')->group(function () {
     Route::post('register', [AuthApiController::class, 'register']);
     Route::post('login', [AuthApiController::class, 'login']);
     Route::post('logout', [AuthApiController::class, 'logout']);
+    Route::get('articles', [ArticleApiController::class, 'index']);
 
     Route::middleware(['jwt.verify'])->group(function () {
-        Route::resource('articles', ArticleApiController::class);
+        Route::resource('articles', ArticleApiController::class)->only(['store', 'update', 'destroy']);
         Route::get('my-articles', [ArticleApiController::class, 'myArticles']);
         Route::post('articles/{article}/vote', [ArticleApiController::class, 'vote']);
     });

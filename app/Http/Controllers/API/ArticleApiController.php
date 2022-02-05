@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateArticleRequest;
+use App\Http\Requests\API\SearchArticleRequest;
 use App\Http\Requests\API\UpdateArticleRequest;
 use App\Http\Requests\API\VoteArticleRequest;
 use App\Http\Resources\ArticleResource;
@@ -12,12 +13,37 @@ use App\Models\Article;
 use App\Models\VoteHistory;
 use App\Services\Crud\ArticleCrud;
 use App\Services\RestResponse;
+use App\Services\Search\Pages\SinglePage;
+use App\Services\Search\Searchers\ArticleSearcher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class ArticleApiController extends BaseApiController
 {
+    public function index(SearchArticleRequest $request, ArticleSearcher $searcher): JsonResponse
+    {
+        $query = $request->validated();
+        $sort = $this->getQuerySort($query, 'created_at.desc');
+        $pageNr = $this->getQueryPageNr($query);
+        $pageSize = $this->getQueryPageSize($query);
+        $filter = [
+            'keyword' => $query['keyword'] ?? '',
+            'category' => $query['category'] ?? '',
+        ];
+
+        $data = $searcher
+            ->withFilters($filter)
+            ->search(new SinglePage($pageSize, $pageNr), $sort);
+
+        $data = [
+            'items' => ArticleResource::collection($data),
+            'total' => $searcher->count(),
+        ];
+
+        return RestResponse::ok('Operation is successful', $data);
+    }
+
     public function store(CreateArticleRequest $request, ArticleCrud $crud): JsonResponse
     {
         try {

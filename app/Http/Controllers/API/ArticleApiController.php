@@ -7,6 +7,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateArticleRequest;
 use App\Http\Requests\API\UpdateArticleRequest;
 use App\Http\Requests\API\VoteArticleRequest;
+use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use App\Models\VoteHistory;
 use App\Services\Crud\ArticleCrud;
@@ -88,5 +89,14 @@ class ArticleApiController extends BaseApiController
 
             return RestResponse::bad('Vote request can not be processed right now.');
         }
+    }
+
+    public function myArticles(): JsonResponse
+    {
+        $data = [
+            'items' => ArticleResource::collection(auth()->user()->articles),
+        ];
+
+        return RestResponse::ok('Operation is successful', $data);
     }
 }

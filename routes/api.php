@@ -22,6 +22,7 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware(['jwt.verify'])->group(function () {
         Route::resource('articles', ArticleApiController::class);
+        Route::post('articles/{article}/vote', [ArticleApiController::class, 'vote']);
     });
 
 });

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed|string title
  * @property mixed|string description
  * @property int|mixed vote
+ * @property mixed id
  */
 class Article extends Model
 {

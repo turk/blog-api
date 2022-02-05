@@ -12,6 +12,5 @@ interface CrudInterface
 
     public function update(Model $entity, array $data): array;
 
-    public function delete(int $id): bool;
-
+    public function delete(Model $entity): void;
 }

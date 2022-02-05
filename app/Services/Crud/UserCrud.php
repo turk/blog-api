@@ -31,8 +31,7 @@ class UserCrud implements CrudInterface
         return [];
     }
 
-    public function delete(int $id): bool
+    public function delete(Model $entity): void
     {
-        return true;
     }
 }

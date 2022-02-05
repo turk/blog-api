@@ -45,7 +45,7 @@ class AuthApiController extends BaseApiController
         ]);
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth()->logout();
 

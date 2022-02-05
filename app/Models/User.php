@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @property mixed email
  * @property mixed|string password
+ * @property mixed id
  */
 class User extends Authenticatable implements JWTSubject
 {

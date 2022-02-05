@@ -44,4 +44,11 @@ class AuthApiController extends BaseApiController
             'user' => auth()->user()
         ]);
     }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return RestResponse::ok('User successfully signed out.');
+    }
 }

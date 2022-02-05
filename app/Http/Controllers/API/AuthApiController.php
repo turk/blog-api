@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\API\LoginRequest;
 use App\Http\Requests\API\RegisterRequest;
 use App\Services\Crud\UserCrud;
 use App\Services\RestResponse;
@@ -27,5 +28,20 @@ class AuthApiController extends BaseApiController
 
             return RestResponse::bad('The request cannot be processed right now.');
         }
+    }
+
+    public function login(LoginRequest $request): JsonResponse
+    {
+
+        if (!$token = auth()->attempt($request->validated())) {
+            return response()->json(['error' => 'Wrong email address or password.'], 401);
+        }
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
+        ]);
     }
 }
